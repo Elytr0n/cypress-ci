@@ -18,6 +18,21 @@ describe('Sign Up Test Suite', () => {
       cy.visit('/sign-up');
   })
 
+  it('TC07 - 1 symbol for the email local part required', () => {
+    cy.visit('/sign-in');
+    cy.get('input[name="email"][type="email"]').type('@gmail.com');
+    cy.get('input[name="password"][type="password"]').type('11111111');
+
+    cy.contains(createAccBtnLoc,'Sign In').click()
+
+    cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
+         .should('contain', 'Введите часть адреса до символа "@". Адрес "@gmail.com" неполный.');
+
+    cy.get('input[name="email"][type="email"]').clear();
+    cy.get('input[name="email"][type="email"]').type('a@gmail.com');
+    cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
+        .should('be.empty');
+  }); 
 
   it('TC15 - 1 symbol for the email local part required', () => {
     cy.get('input[name="name"][type="text"]').type('NoLocalpart NoLove');
