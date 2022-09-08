@@ -4,6 +4,6 @@ module.exports = defineConfig({
   viewportHeight: 1080,
   viewportWidth: 1920,
   e2e: {
-    baseUrl: 'http://localhost:3000'    
+    baseUrl: 'https://autoline-not-autoria.xyz/'    
   },
 });
