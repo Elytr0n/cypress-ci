@@ -28,12 +28,57 @@ describe('Sign Up Test Suite', () => {
     cy.contains(createAccBtnLoc,'Create Account').click()
 
     cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
-         .should('contain', 'Введите часть адреса до символа "@". Адрес "@gmail.com" неполный.');
+         .should('contain', 'Please enter a part followed by \'@\'. \'@gmail.com\' is incomplete.');
 
     cy.get('input[name="email"][type="email"]').clear();
     cy.get('input[name="email"][type="email"]').type('a@gmail.com');
     cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
         .should('be.empty');
   })
+  it('TC05 Email in Cyrillic', () => {
+    cy.visit('/sign-in');
+    cy.get('input[name="email"][type="email"]').type('вася@gmail.com');
+    cy.get('input[name="password"][type="password"]').type('11111111');
+    cy.contains(createAccBtnLoc,'Sign In').click()
+    cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
+        .should('contain', 'Часть адреса до символа "@" не должна содержать символ "в".');
+  }); 
+
+  it('TC17 - Email domain part cannot start with a hyphen', () => {
+    cy.get('input[name="name"][type="text"]').type('Hyphen Fan');
+    cy.get('input[name="email"][type="email"]').type('abc123@-mail.com');
+    cy.get('input[name="password"][type="password"]').type('11111111');
+    cy.get('input[name="repeatPassword"][type="password"]').type('11111111');
+
+    cy.contains(createAccBtnLoc,'Create Account').click()
+
+    cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
+        .should('contain', 'Введите адрес электронной почты.');
+  });  
+
+  it('TC19 Email in Cyrillic', () => {
+    cy.get('input[name="name"][type="text"]').type('Cyrillics Fan');
+    cy.get('input[name="email"][type="email"]').type('вася@gmail.com');
+    cy.get('input[name="password"][type="password"]').type('11111111');
+    cy.get('input[name="repeatPassword"][type="password"]').type('11111111');
+
+    cy.contains(createAccBtnLoc,'Create Account').click()
+
+    cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
+        .should('contain', 'Часть адреса до символа "@" не должна содержать символ "в".');
+});  
+
+it('TC20 Email should contain @ symbol', () => {
+  cy.get('input[name="name"][type="text"]').type('Lost Dog');
+  cy.get('input[name="email"][type="email"]').type('abc123mail.com');
+  cy.get('input[name="password"][type="password"]').type('11111111');
+  cy.get('input[name="repeatPassword"][type="password"]').type('11111111');
+
+  cy.contains(createAccBtnLoc,'Create Account').click()
+
+  cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
+      .should('contain', 'Адрес электронной почты должен содержать символ "@". В адресе "abc123mail.com" отсутствует символ "@".');
+}); 
+
   }
 )
