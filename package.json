@@ -15,7 +15,7 @@
     "build": "next build",
     "start": "next start",
     "cypress-run": "cypress run",
-    "int-test": "start-server-and-test next http://localhost:3000 cypress-run"
+    "int-test": "server-test http://localhost:3000 cypress-run"
 
   },
   "devDependencies": {
