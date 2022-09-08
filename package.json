@@ -14,7 +14,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "cypress-run": "cypress run --record",
+    "cypress-run": "cypress run",
     "int-test": "start-server-and-test next http://localhost:3000 cypress-run"
 
   },
