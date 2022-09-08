@@ -41,7 +41,7 @@ describe('Sign Up Test Suite', () => {
     cy.get('input[name="password"][type="password"]').type('11111111');
     cy.contains(createAccBtnLoc,'Sign In').click()
     cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
-        .should('contain', 'Часть адреса до символа "@" не должна содержать символ "в".');
+        .should('contain', 'A part followed by \'@\' should not contain the symbol \'в\'.');
   }); 
 
   it('TC17 - Email domain part cannot start with a hyphen', () => {
@@ -53,7 +53,7 @@ describe('Sign Up Test Suite', () => {
     cy.contains(createAccBtnLoc,'Create Account').click()
 
     cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
-        .should('contain', 'Введите адрес электронной почты.');
+        .should('contain', 'Please enter an email address.');
   });  
 
   it('TC19 Email in Cyrillic', () => {
@@ -65,7 +65,7 @@ describe('Sign Up Test Suite', () => {
     cy.contains(createAccBtnLoc,'Create Account').click()
 
     cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
-        .should('contain', 'Часть адреса до символа "@" не должна содержать символ "в".');
+        .should('contain', 'A part followed by \'@\' should not contain the symbol \'в\'.');
 });  
 
 it('TC20 Email should contain @ symbol', () => {
@@ -77,7 +77,7 @@ it('TC20 Email should contain @ symbol', () => {
   cy.contains(createAccBtnLoc,'Create Account').click()
 
   cy.get('input[name="email"][type="email"]').invoke('prop', 'validationMessage')
-      .should('contain', 'Адрес электронной почты должен содержать символ "@". В адресе "abc123mail.com" отсутствует символ "@".');
+      .should('contain', 'Please include an \'@\' in the email address. \'abc123mail.com\' is missing an \'@\'.');
 }); 
 
   }
